@@ -1,0 +1,25 @@
+
+to: html5
+output-file: .\output\book.pdf  # change to book.html to see interim HTML output before PDF generation
+template: template-pdf.latex
+
+pdf-engine: wkhtmltopdf
+pdf-engine-opts:
+- "--log-level"
+- "info"
+- "--enable-local-file-access"
+- "--page-size"
+- "A5"
+- "--margin-top"
+- "1in"
+- "--margin-right"
+- "1in"
+- "--margin-bottom"
+- "1in"
+- "--margin-left"
+- "1in"
+- "--disable-smart-shrinking"
+- "--no-background"
+- "--disable-external-links"
+- "--footer-html"
+- "footer-pdf.html"

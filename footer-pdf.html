@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            footer {
+                text-align: center;
+                font-size: 7pt;
+            }
+        </style>
+    </head>
+
+    <body style='border:0; margin: 0;'>
+
+        
+        <footer id='page-footer'>
+            <!-- This is your page footer, it defaults to just the page number -->
+            <span id='page-number'></span>
+        </footer>
+
+
+        <script>
+            var info = {};
+            document.location.search.substring(1).split('&').forEach(function(q) {
+                var data = q.split('=');
+                info[data[0]] = (data[0] === 'page') ? (Number(data[1]) - 1) : decodeURI(data[1]);
+            });
+
+            // There is other info to be had (but not much), such as the chapter heading (H2):
+            var chapterTitle = info.subsection || ''
+
+            // Now put the pieces in the template (see HTML above)
+            document.getElementById('page-number').innerText = info.page;
+
+            
+            // We don't want page numbers on the title page or dedication, so clear out the footer
+            // You could also remove the footer from other "sections" if you wanted
+            if (info.page < 2) {
+                document.getElementById('page-footer').innerText = '';
+            }
+        </script>
+    </body>
+
+</html>

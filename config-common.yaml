@@ -1,0 +1,22 @@
+
+# ERROR, WARNING, or INFO
+verbosity: WARNING
+# log-file: log.json
+# fail-if-warnings: false
+# dump-args: false
+# ignore-args: false
+# trace: false
+
+from: markdown-smart
+
+metadata:
+  title: (Untitled)
+  rights: © Copyright 2022, All rights reserved
+  lang: en-US
+  author:
+  - Jane Doe
+  dedication: Dedicated to my dog
+
+css:
+- book.css
+

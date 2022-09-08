@@ -1,0 +1,4 @@
+
+to: epub
+output-file: .\output\book.epub
+template: template-epub.latex

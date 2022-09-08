@@ -1,0 +1,195 @@
+
+/* ----------------------------------------------------------------------------------------- */
+/* Simple styles for common elements */
+/* ----------------------------------------------------------------------------------------- */
+
+/* Pull in whatever fonts you want, but note that these @import statements must be at the top! */
+@import url('https://fonts.googleapis.com/css2?family=Marck+Script&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+body {
+    margin: 0 !important;
+    font-size: 8pt;
+}
+
+p, code, pre {
+    font-size: 8pt;
+    word-wrap: normal !important;
+}
+
+p, dt, dd {
+    font-family: 'PT Sans', sans-serif;
+    line-height: 1.4em;
+}
+
+blockquote {
+    border-left: #bbb solid 3px;
+    padding-left: 1em;
+    margin: 1em 2em;
+}
+
+hr::before {
+    content: "* * *";
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+hr {
+    border: 0;
+    margin: 1.5em 0;
+}
+
+code {
+    word-wrap: normal !important;
+    line-height: 1.8em;
+}
+
+
+/* ----------------------------------------------------------------------------------------- */
+/* Overall and chapter title page(s) and related elements */
+/* ----------------------------------------------------------------------------------------- */
+body h1 {
+    font-size: 24pt;
+    font-family: 'Times New Roman', Times, serif !important;
+    text-align: left;
+    padding-top: 5em;
+    margin-bottom: 1.5em;
+}
+body header .author::before {
+    content: "by "
+}
+body header .copyright {
+    color: #555;
+}
+
+/* Dedication page */
+body #dedication {
+    page-break-before: always;
+    page-break-after: always;
+    padding-top: 20em;
+    text-align: center;
+    font-style: italic;
+}
+
+/* The "h2" element (two #'s in markdown) should be used for chapter titles! */
+body h2 {
+    page-break-before: always;
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 16pt;
+    margin-top: 2em;
+}
+/* Add a little space after a chapter title */
+body h2 + p {
+    margin-top: 3em;
+}
+
+
+/* A chapter sub-title, if needed */
+body h3 {
+    font-size: 8pt;
+    color: #555;
+    margin: 0 0 3em 0;
+}
+
+/* This alters the FIRST LETTER of any new chapter */
+body h2 + p::first-letter, body h3 + p::first-letter {
+    font-size: 2rem;
+    float: left;
+    font-family: 'Marck Script', 'Times New Roman', Times, serif;
+    color: #333;
+    margin: 0.5rem 0.4rem 0.2rem 0;
+}
+
+
+
+/* ----------------------------------------------------------------------------------------- */
+/* This is our "chat UI" styles */
+/* ----------------------------------------------------------------------------------------- */
+dl {
+    border: 1px solid #555;
+    border-radius: 0.9em;
+    padding: 0.5em;
+}
+dt {
+    font-weight: bold;
+    margin-top: 1.5em;
+}
+dt::first-letter {
+    display: block;
+    font-family: 'Courier New', Courier, monospace;
+    border: 1px solid #777;
+    border-radius: 0.4em;
+    padding: 0.5em 0.9em;
+    margin-right:1em;
+}
+dd {
+    margin: 1em 0 0 3.5em;
+}
+
+
+
+/* ----------------------------------------------------------------------------------------- */
+/* Here is our text message UI */
+/* ----------------------------------------------------------------------------------------- */
+.text-chain-left, .text-chain-right {
+    font-family: 'Courier New', Courier, monospace;
+    margin: 1em 0em;
+    line-height: 1.4em;
+    border: 1px solid #ddd;
+    padding: 0.2em;
+    position: relative;
+    page-break-inside: avoid;
+}
+.text-chain-left {
+    border-radius: 0 0.5em 0.5em 0.5em;
+    margin-right: 20px;
+}
+.text-chain-right {
+    border-radius: 0.5em 0 0.5em 0.5em;
+    text-align: right;
+    margin-left: 20px;
+}
+.text-chain-left::before, .text-chain-right::before {
+    content: "";
+    position: absolute;
+    border-style: solid;
+    border-color: #eee transparent;
+    display: block;
+    width: 0;
+}
+.text-chain-left::before {
+    top: -10px;
+    left: -1px;
+    border-width: 0 10px 10px 0;
+}
+.text-chain-right::before {
+    top: -10px;
+    right: -1px;
+    border-width: 0 0 10px 10px;
+}
+.text-chain-left::after, .text-chain-right::after {
+    content: "";
+    position: absolute;
+    border-style: solid;
+    border-color: #fff transparent;
+    display: block;
+    width: 0;
+}
+.text-chain-left::after {
+    top: -8px;
+    left: 0;
+    border-width: 0 9px 9px 0;
+}
+.text-chain-right::after {
+    top: -8px;
+    right: 0;
+    border-width: 0 0 9px 9px;
+}
+
+
+/* ----------------------------------------------------------------------------------------- */
+/* Styles for our page footer (typically just for the page numbers) */
+/* ----------------------------------------------------------------------------------------- */
+footer {
+    font-size: 9pt;
+    color: #333333;
+}
