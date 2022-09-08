@@ -81,7 +81,7 @@ $epubcommand
 rm ./tmp-config-epub.yaml
 
 
-if [ "$1" = "-BumpLevel" && "$nextbuild" != "preview" ]; then
+if [[ "$1" = "-BumpLevel" && "$nextbuild" != "preview" ]]; then
     echo ""
     echo ">>> Tagging new build: git tag v$nextbuild"
     git tag "v$nextbuild"
