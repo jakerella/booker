@@ -6,29 +6,23 @@ This is a very simple generator for books based on markdown source files. This i
 
 Clone the repo, then start writing your book. All of your content needs to go in the `chapters` directory. Use simple Markdown (along with some custom styling found in the `book.css` file) to create your content. Install the dependencies (see below) and run a command (again, see below) to generate both PDF and ePub versions of your book.
 
-## Generating a Formatted PDF
+As an added bonus, this framework can help you manage versions/builds (see below) and will count the number of words across your entire book (roughly, it also captures some markdown artifacts that aren't words).
+
+## Generating ePub & PDF
 
 1. Install [wkhtmltopdf](https://wkhtmltopdf.org/)
 2. Install [pandoc](https://pandoc.org/)
-3. Generate the PDF.
+  * NOTE: make sure to get the latest, especially on linux (aptitude has a very old version)
+3. Write your chapters with `.md` files in the `chapters` directory
+4. Generate the output documents using the `build.ps1` (PowerShell) or `build.sh` (bash) scripts
 
-### Windows
+### Versioning
 
-In PowerShell, run the build script: `.\build.ps1`
-
-> Windows? Blech...
-> Yeah well, I found it easier to get wkhtmltopdf and pandoc to work together this way. 
-
-If you are using the PowerShell script, you can also use the `-BumpLevel` CLI option to bump the patch, minor, or major version and automatically create a tag in the git repo. This will also insert the version/build into the PDF or epub file.
+You can also use the `-BumpLevel` CLI option to bump the patch, minor, or major version and automatically create a tag in the git repo. This will also insert the version/build into the PDF and epub file's title page.
 
 For example: `.\build.ps1 -BumpLevel minor`
 
-### Mac/Linux
-
-At some point I will make a more thorough shell script to mimic the PowerShell script, but for now you will need to:
-
-1. Combine the `config-common.yaml` and `config-epub.yaml` (and separately the `config-pdf.yaml`) files
-2. Run this command with each of the config files: `pandoc -s -d [COMBINED-CONFIG-FILE] chapters/*.md`
+> NOTE: you should manually create a tag the first time (like `git tag v1.0.0`)
 
 ## I don't really like the template, can I change it?
 

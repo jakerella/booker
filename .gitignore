@@ -1,2 +1,3 @@
 output/book*
-tmp-config.yaml
+tmp-config-pdf.yaml
+tmp-config-epub.yaml
