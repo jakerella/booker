@@ -4,7 +4,7 @@ This is a very simple generator for books based on markdown source files. This i
 
 ## Okay, so what do I do with this?
 
-Clone the repo, then start writing your book. All of your content needs to go in the `chapters` directory. Use simple Markdown (along with some custom styling found in the `book.css` file) to create your content. Install the dependencies (see below) and run a command (again, see below) to generate both PDF and ePub versions of your book.
+Click on the "Use this template" button in GitHub to create a new repo, then start writing your book. All of your content needs to go in the `chapters` directory. Use simple Markdown (along with some custom styling found in the `book.css` file) to create your content. Install the dependencies (see below) and run a command (again, see below) to generate both PDF and ePub versions of your book.
 
 As an added bonus, this framework can help you manage versions/builds (see below) and will count the number of words across your entire book (roughly, it also captures some markdown artifacts that aren't words).
 
