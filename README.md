@@ -1,14 +1,12 @@
 
 # Booker
 
-Booker is a very simple generator for books based on markdown source files. This is NOT a fancy user interface for managing and generating books, however, it is a very techie-focused library for those of us that like that sort of thing.
+Booker is a very simple generator for books based on markdown source files. This is NOT a fancy user interface for managing and generating books. It is a very techie-focused library for those of us that like that sort of thing.
+
 
 ## Okay, so what do I do with this?
 
-Clone the repo (or use it as a [GitHub template](#)), then start writing your book. All of your **content needs to go in the `chapters` directory** (take a look at the sample chapters in there). You can use all the [basic Markdown formatting](https://daringfireball.net/projects/markdown/syntax) as well as pretty much any HTML code along with custom styles in the CSS file.
-There are a few built in custom styles found in the `book.css` file (see "[Custom Styling](#custom-styling)" below). The scripts _do not support_ any markdown variations such as GitHub flavored. When you're ready to generate the book output, follow the instructions below.
-
-This framework can also help you manage versions/builds of your book (see below) and will count the number of words across your entire book. (Note that this is pretty rough, it may also capture some markdown artifacts that aren't words!)
+Click on the "Use this template" button in GitHub to create a new repo, then start writing your book. **All of your content needs to go in the `chapters` directory**. Use [basic Markdown](https://daringfireball.net/projects/markdown/syntax) (along with some custom styling found in the `book.css` file) to create your content. Install the dependencies (see below) and run a command (see below) to generate PDF, ePub, and docx versions of your book.
 
 
 ### Generating a Book
@@ -19,9 +17,10 @@ There are PowerShell (Windows) and Bash (everyone else) scripts to generate thin
 2. Install [pandoc](https://pandoc.org/)
     * NOTE: make sure to get the latest pandoc, especially on linux (aptitude has a very old version)
 3. Double check that all of your content is in the `chapters` directory (and in the order you want it to appear in the book)
-4. Run either the `build.ps1` (PowerShell) or `build.sh` (bash) script
+4. Run either the `build.sh` (bash) or `build.ps1` (PowerShell) script
+5. Open your book from the `output` directory
 
-> Note that this outputs 3 versions of your book by default: pdf, ePub, and a Word doc manuscript. See below for options.
+> Note that this outputs 3 versions of your book by default: pdf, ePub, and a docx manuscript. See below for options.
 
 #### Versioning
 
