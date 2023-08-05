@@ -43,9 +43,12 @@ if [ "$bumpLevel" != "" ]; then
 
     if [ "$bumpLevel" = "major" ]; then
         major=$(($major + 1))
+        minor="0"
+        patch="0"
         echo "major bump to: $major"
     elif [ "$bumpLevel" = "minor" ]; then
         minor=$(($minor + 1))
+        patch="0"
         echo "minor bump to: $minor"
     elif [ "$bumpLevel" = "patch" ]; then
         patch=$(($patch + 1))
