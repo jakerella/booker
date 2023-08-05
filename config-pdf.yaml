@@ -1,6 +1,5 @@
 
 to: html5
-output-file: .\output\book.pdf  # change to book.html to see interim HTML output before PDF generation
 template: template-pdf.latex
 
 pdf-engine: wkhtmltopdf
@@ -23,3 +22,6 @@ pdf-engine-opts:
 - "--disable-external-links"
 - "--footer-html"
 - "footer-pdf.html"
+
+css:
+- book.css

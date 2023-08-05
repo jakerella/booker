@@ -2,6 +2,21 @@
 
 echo "Let's make a book!"
 
+bumpLevel=""
+onlyRun=""
+
+if [ "$1" = "-BumpLevel" ]; then
+    bumpLevel="$2"
+elif [ "$3" = "-BumpLevel" ]; then
+    bumpLevel="$4"
+fi
+
+if [ "$1" = "-OnlyRun" ]; then
+    onlyRun="$2"
+elif [ "$3" = "-OnlyRun" ]; then
+    onlyRun="$4"
+fi
+
 echo ">>> Gathering files and counting words"
 
 cat ./chapters/*.md > ./tmp-all.txt
@@ -16,7 +31,7 @@ nextbuild="preview"
 echo ""
 echo ">>> Determining build number..."
 
-if [ "$1" = "-BumpLevel" ]; then
+if [ "$bumpLevel" != "" ]; then
     buildtags=($(git tag -l "v*" --sort=-v:refname))
 
     IFS='.' read -r -a versionbits <<< "${buildtags[0]}"
@@ -26,13 +41,13 @@ if [ "$1" = "-BumpLevel" ]; then
     minor="${versionbits[1]}"
     patch="${versionbits[2]}"
 
-    if [ "$2" = "major" ]; then
+    if [ "$bumpLevel" = "major" ]; then
         major=$(($major + 1))
         echo "major bump to: $major"
-    elif [ "$2" = "minor" ]; then
+    elif [ "$bumpLevel" = "minor" ]; then
         minor=$(($minor + 1))
         echo "minor bump to: $minor"
-    elif [ "$2" = "patch" ]; then
+    elif [ "$bumpLevel" = "patch" ]; then
         patch=$(($patch + 1))
         echo "patch bump to: $patch"
     else
@@ -62,26 +77,51 @@ else
 fi
 
 
-echo ""
-echo ">>> Generating PDF file"
-cat config-common.yaml > tmp-config-pdf.yaml
-cat config-pdf.yaml >> tmp-config-pdf.yaml
-pdfcommand="pandoc -s -d tmp-config-pdf.yaml -o ./output/book-$nextbuild.pdf $buildcommand ./chapters/*.md"
-echo "    $pdfcommand"
-$pdfcommand
-rm ./tmp-config-pdf.yaml
+if [[ "$onlyRun" = "" || "$onlyRun" = "pdf" ]]; then
+    echo ""
+    echo ">>> Generating PDF file"
+    cat config-common.yaml > tmp-config-pdf.yaml
+    cat config-pdf.yaml >> tmp-config-pdf.yaml
+    pdfcommand="pandoc -s -d tmp-config-pdf.yaml -o ./output/book-$nextbuild.pdf $buildcommand ./chapters/*.md"
+    echo "    $pdfcommand"
+    $pdfcommand
+    rm ./tmp-config-pdf.yaml
+fi
 
-echo ""
-echo ">>> Generating ePub file"
-cat config-common.yaml > tmp-config-epub.yaml
-cat config-epub.yaml >> tmp-config-epub.yaml
-epubcommand="pandoc -s -d tmp-config-epub.yaml -o ./output/book-$nextbuild.epub $buildcommand ./chapters/*.md"
-echo "    $epubcommand"
-$epubcommand
-rm ./tmp-config-epub.yaml
+if [[ "$onlyRun" = "" || "$onlyRun" = "epub" ]]; then
+    echo ""
+    echo ">>> Generating ePub file"
+    cat config-common.yaml > tmp-config-epub.yaml
+    cat config-epub.yaml >> tmp-config-epub.yaml
+    epubcommand="pandoc -s -d tmp-config-epub.yaml -o ./output/book-$nextbuild.epub $buildcommand ./chapters/*.md"
+    echo "    $epubcommand"
+    $epubcommand
+    rm ./tmp-config-epub.yaml
+fi
+
+if [[ "$onlyRun" = "" || "$onlyRun" = "manuscript" ]]; then
+    echo ""
+    echo ">>> Generating manuscript file"
+    
+    cat config-common.yaml > tmp-config-manuscript.yaml
+    cat config-manuscript.yaml >> tmp-config-manuscript.yaml
+
+    manuscriptCommand="pandoc -s -d tmp-config-manuscript.yaml -o ./output/tmp-manuscript.md ./chapters/*.md"
+    echo "    generating intermediary markdown:"
+    echo "    $manuscriptCommand"
+    $manuscriptCommand
+    
+    manuscriptCommand="pandoc -o ./output/manuscript-$nextbuild.docx --reference-doc template-manuscript.docx -f markdown -t docx ./output/tmp-manuscript.md"
+    echo "    generating docx manuscript:"
+    echo "    $manuscriptCommand"
+    $manuscriptCommand
+
+    rm ./tmp-config-manuscript.yaml
+    rm ./output/tmp-manuscript.md
+fi
 
 
-if [[ "$1" = "-BumpLevel" && "$nextbuild" != "preview" ]]; then
+if [[ "$bumpLevel" != "" && "$nextbuild" != "preview" ]]; then
     echo ""
     echo ">>> Tagging new build: git tag v$nextbuild"
     git tag "v$nextbuild"

@@ -1,5 +1,8 @@
 
-param ([string]$BumpLevel = "")
+param (
+    [string]$BumpLevel = "",  # Optional: major, minor, patch
+    [string]$OnlyRun = ""     # Optional: pdf, epub, manuscript
+)
 
 Echo "`nLet's make a book!"
 
@@ -71,21 +74,47 @@ if ( $BumpLevel ) {
 }
 
 $baseconfig = Get-Content .\config-common.yaml
-$pdfconfig = Get-Content .\config-pdf.yaml
-$epubconfig = Get-Content .\config-epub.yaml
 
-$PdfCommand = "pandoc -s -d tmp-config.yaml -o .\output\book-$nextbuild.pdf $buildcommand"
-Echo "`n>>> Generating PDF file with:  $PdfCommand"
-($baseconfig + $pdfconfig) | Set-Content ".\tmp-config.yaml"
-Invoke-Expression "$PdfCommand $FileString"
-del .\tmp-config.yaml
+# Need to debug?
+# change the "-o .\output\..." options below from whatever format they are to ".\output\book.html" to see interim HTML output before final doc generation
 
+if ( $OnlyRun -eq "" -or $OnlyRun -eq "pdf" ) {
+    $pdfconfig = Get-Content .\config-pdf.yaml
+    $PdfCommand = "pandoc -s -d tmp-config.yaml -o .\output\book-$nextbuild.pdf $buildcommand"
+    Echo "`n>>> Generating PDF file with:  $PdfCommand"
+    ($baseconfig + $pdfconfig) | Set-Content ".\tmp-config.yaml"
+    Invoke-Expression "$PdfCommand $FileString"
+    del .\tmp-config.yaml
+}
 
-$EpubCommand = "pandoc -d tmp-config.yaml -o .\output\book-$nextbuild.epub $buildcommand"
-Echo "`n>>> Generating epub file with:  $EpubCommand"
-($baseconfig + $epubconfig) | Set-Content ".\tmp-config.yaml"
-Invoke-Expression "$EpubCommand $FileString"
-del .\tmp-config.yaml
+if ( $OnlyRun -eq "" -or $OnlyRun -eq "epub" ) {
+    $epubconfig = Get-Content .\config-epub.yaml
+    $EpubCommand = "pandoc -d tmp-config.yaml -o .\output\book-$nextbuild.epub $buildcommand"
+    Echo "`n>>> Generating epub file with:  $EpubCommand"
+    ($baseconfig + $epubconfig) | Set-Content ".\tmp-config.yaml"
+    Invoke-Expression "$EpubCommand $FileString"
+    del .\tmp-config.yaml
+}
+
+if ( $OnlyRun -eq "" -or $OnlyRun -eq "manuscript" ) {
+    $manuscriptConfig = Get-Content .\config-manuscript.yaml
+    ($baseconfig + $manuscriptConfig) | Set-Content ".\tmp-config.yaml"
+
+    Echo "`n>>> Generating manuscript file"
+
+    $manuscriptCommand = "pandoc -s -d tmp-config.yaml -o .\output\tmp-manuscript.md"
+    Echo "    generating intermediary markdown:"
+    Echo "    $manuscriptCommand"
+    Invoke-Expression "$manuscriptCommand $FileString"
+
+    $manuscriptCommand = "pandoc -o .\output\manuscript-$nextbuild.docx --reference-doc template-manuscript.docx -f markdown -t docx .\output\tmp-manuscript.md"
+    Echo "    generating docx manuscript:"
+    Echo "    $manuscriptCommand"
+    Invoke-Expression "$manuscriptCommand"
+    
+    del .\output\tmp-manuscript.md
+    del .\tmp-config.yaml
+}
 
 
 if ( $BumpLevel ) {

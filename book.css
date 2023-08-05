@@ -4,29 +4,13 @@
 /* ----------------------------------------------------------------------------------------- */
 
 /* Pull in whatever fonts you want, but note that these @import statements must be at the top! */
-@import url('https://fonts.googleapis.com/css2?family=Marck+Script&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Marck+Script&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap'); */
 
-body {
-    margin: 0 !important;
-    font-size: 8pt;
-}
 
-p, code, pre {
-    font-size: 8pt;
-    word-wrap: normal !important;
-}
 
-p, dt, dd {
-    font-family: 'PT Sans', sans-serif;
-    line-height: 1.4em;
-}
+/** IMPORTANT CUSTOM STYLES YOU MIGHT WANT TO CHANGE **/
 
-blockquote {
-    border-left: #bbb solid 3px;
-    padding-left: 1em;
-    margin: 1em 2em;
-}
-
+/** Scene breaks in markdown using --- will appear as three asterisks (***) centered on the page, INSTEAD of a horizontal rule. **/
 hr::before {
     content: "* * *";
     display: block;
@@ -36,6 +20,44 @@ hr::before {
 hr {
     border: 0;
     margin: 1.5em 0;
+}
+
+/** The firts letter of every chapter is larger, so long as you use H2 (##) for your chapter headers **/
+body h2 + p::first-letter, body h3 + p::first-letter {
+    font-size: 2rem;
+    float: left;
+    font-family: 'Marck Script', 'Times New Roman', Times, serif;
+    color: #333;
+    margin: 0.5rem 0.4rem 0.2rem 0;
+}
+
+
+
+/** Basic style and such follow! **/
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    margin: 0 !important;
+    font-size: 8pt;
+}
+
+p {
+    text-align: justify;
+}
+
+p, code, pre {
+    font-size: 8pt;
+    word-wrap: normal !important;
+}
+
+p, dt, dd {
+    line-height: 1.4em;
+}
+
+blockquote {
+    border-left: #bbb solid 3px;
+    padding-left: 1em;
+    margin: 1em 2em;
 }
 
 code {
@@ -88,15 +110,6 @@ body h3 {
     font-size: 8pt;
     color: #555;
     margin: 0 0 3em 0;
-}
-
-/* This alters the FIRST LETTER of any new chapter */
-body h2 + p::first-letter, body h3 + p::first-letter {
-    font-size: 2rem;
-    float: left;
-    font-family: 'Marck Script', 'Times New Roman', Times, serif;
-    color: #333;
-    margin: 0.5rem 0.4rem 0.2rem 0;
 }
 
 
