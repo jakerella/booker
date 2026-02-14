@@ -76,9 +76,6 @@ body h1 {
     padding-top: 5em;
     margin-bottom: 1.5em;
 }
-body header .author::before {
-    content: "by "
-}
 body header .copyright {
     color: #555;
 }
